@@ -35,8 +35,6 @@ public class Cliente {
     private Long cpf;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-    @NotBlank(message = "O campo contas não pode estar vazio")
-    @JoinColumn(name = "contas_numero")
     private List<Conta> contas;
 
     @Column(nullable = false)
