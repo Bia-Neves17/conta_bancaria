@@ -1,6 +1,6 @@
 package com.senai.conta_bancaria.application.service;
 
-import com.senai.conta_bancaria.application.dto.ClienteDTO;
+import com.senai.conta_bancaria.application.dto.ClienteRegistroDTO;
 import com.senai.conta_bancaria.domain.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,10 +15,10 @@ public class ClienteService {
     ClienteRepository clienteRepository;
 
     @Transactional(readOnly = true)
-    public List<ClienteDTO> listarClientes(){
+    public List<ClienteRegistroDTO> listarClientes(){
         return clienteRepository.findAll()
                 .stream()
-                .map(ClienteDTO::fromEntity)
+                .map(ClienteRegistroDTO::fromEntity)
                 .toList();
     }
 
