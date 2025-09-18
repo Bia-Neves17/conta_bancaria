@@ -32,7 +32,7 @@ public class Cliente {
 
     @Column(nullable = false,length = 11)
     @NotNull(message = "O campo cpf não pode estar vazio")
-    private Long cpf;
+    private String cpf;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Conta> contas;
