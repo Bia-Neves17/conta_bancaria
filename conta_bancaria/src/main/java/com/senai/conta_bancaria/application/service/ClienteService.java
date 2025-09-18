@@ -3,29 +3,24 @@ package com.senai.conta_bancaria.application.service;
 import com.senai.conta_bancaria.application.dto.ClienteRegistroDTO;
 import com.senai.conta_bancaria.application.dto.ClienteResponseDTO;
 import com.senai.conta_bancaria.domain.repository.ClienteRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ClienteService {
 
-    @Autowired
-    ClienteRepository clienteRepository;
+    private final ClienteRepository clienteRepository;
 
-    public ClienteResponseDTO regitrarCliente(ClienteRegistroDTO){
+    public ClienteResponseDTO regitrarCliente(ClienteRegistroDTO dto){
+        var cliente = clienteRepository.findByCpfAndAtivoTrue(dto.cpf())
+                .orElseGet(() -> clienteRepository.save(dto.toEntity()));
+        var contas = cliente.getContas();
+        var novaConta = dto.contaDTO().toEntity(cliente);
+        boolean jaTemTipo = contas
+                .stream()
+                .anyMatch(conta -> conta.getClass().equals(dto.contaDTO().getClass()) && conta.isAtiva())
         return
     }
 
-    @Transactional(readOnly = true)
-    public List<ClienteRegistroDTO> listarClientes(){
-        return clienteRepository.findAll()
-                .stream()
-                .map(ClienteRegistroDTO::fromEntity)
-                .toList();
-    }
-
-    //public ClienteDTO
 }
