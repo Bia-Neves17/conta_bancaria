@@ -4,10 +4,13 @@ import com.senai.conta_bancaria.application.dto.ClienteRegistroDTO;
 import com.senai.conta_bancaria.application.dto.ClienteResponseDTO;
 import com.senai.conta_bancaria.application.service.ClienteService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/api/cliente")
@@ -18,7 +21,8 @@ public class ClienteController {
 
 
     @PostMapping
-    public ClienteResponseDTO registarCliente(@RequestBody ClienteRegistroDTO dto){
-        return clienteService.regitrarCliente(dto);
+    public ResponseEntity<ClienteResponseDTO> registarCliente(@RequestBody ClienteRegistroDTO dto){
+        ClienteResponseDTO novoCliente = clienteService.regitrarCliente(dto);
+        return ResponseEntity.created(URI.create("/api/novoCliente/cpf/"+ novoCliente.cpf())).body(novoCliente);
     }
 }
