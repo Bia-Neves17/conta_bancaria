@@ -30,7 +30,7 @@ public class ClienteController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ClienteResponseDTO>> listarClientesCpfAtivos(){
-        return ResponseEntity.ok(clienteService.listarClientesCpfAtivos());
+    public ResponseEntity<ClienteResponseDTO> buscarClienteCpfAtivo(@PathVariable String cpf){
+        return ResponseEntity.ok(clienteService.buscarClienteCpfAtivo(cpf));
     }
 }
