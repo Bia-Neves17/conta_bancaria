@@ -15,20 +15,27 @@ public record ContaResumoDTO(
     public Conta toEntity(Cliente cliente) {
         if ("CORRENTE".equalsIgnoreCase(tipo)){
             return ContaCorrente.builder()
-                    .id(null)
                     .cliente(cliente)
-                    .numero(numero)
-                    .saldo(saldo)
+                    .numero(this.numero)
+                    .saldo(this.saldo)
                     .ativa(true)
                     .build();
         } else if ("POUPANCA".equalsIgnoreCase(tipo)) {
             return ContaPoupanca.builder()
                     .cliente(cliente)
-                    .numero(numero)
-                    .saldo(saldo)
+                    .numero(this.numero)
+                    .saldo(this.saldo)
                     .ativa(true)
                     .build();
         }
         return null;
+    }
+
+    public static ContaResumoDTO fromEntity(Conta conta) {
+        return new ContaResumoDTO(
+                conta.getNumero(),
+                conta.getTipo(),
+                conta.getSaldo()
+        );
     }
 }

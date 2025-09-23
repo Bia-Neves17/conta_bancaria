@@ -13,14 +13,24 @@ public class ClienteService {
     private final ClienteRepository clienteRepository;
 
     public ClienteResponseDTO regitrarCliente(ClienteRegistroDTO dto){
+
         var cliente = clienteRepository.findByCpfAndAtivoTrue(dto.cpf())
-                .orElseGet(() -> clienteRepository.save(dto.toEntity()));
+                .orElseGet(() -> clienteRepository.save(dto.toEntity())
+                );
+
         var contas = cliente.getContas();
+
         var novaConta = dto.contaDTO().toEntity(cliente);
+
         boolean jaTemTipo = contas
                 .stream()
-                .anyMatch(conta -> conta.getClass().equals(dto.contaDTO().getClass()) && conta.isAtiva())
-        return
+                .anyMatch(
+                        conta -> conta.getClass().equals(novaConta.getClass()) && conta.isAtiva()
+                );
+        if (jaTemTipo)
+            throw new RuntimeException("Cliente já possui uma conta dessa tipo.");
+        cliente.getContas().add(novaConta);
+        return ClienteResponseDTO.fromEntity(clienteRepository.save(cliente));
     }
 
 }

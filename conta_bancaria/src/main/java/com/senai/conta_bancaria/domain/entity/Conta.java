@@ -34,7 +34,12 @@ public abstract class Conta {
     @PositiveOrZero(message = "O saldo não pode ser negativo")
     private BigDecimal saldo;
 
+    @Column(nullable = false)
+    private boolean ativa;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id", foreignKey = @ForeignKey(name = "fk_conta_cliente"))
     private Cliente cliente;
+
+    public abstract String getTipo();
 }
