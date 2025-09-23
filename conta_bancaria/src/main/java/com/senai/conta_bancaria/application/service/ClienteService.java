@@ -40,4 +40,10 @@ public class ClienteService {
                 .map(ClienteResponseDTO::fromEntity)
                 .toList();
     }
+
+    public List<ClienteResponseDTO> listarClientesCpfAtivos() {
+        return clienteRepository.findByCpfAndAtivoTrue().stream()
+                .map(ClienteResponseDTO::fromEntity)
+                .toList();
+    }
 }

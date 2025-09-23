@@ -28,4 +28,9 @@ public class ClienteController {
     public ResponseEntity<List<ClienteResponseDTO>> listarClientesAtivos(){
         return ResponseEntity.ok(clienteService.listarClientesAtivos());
     }
+
+    @GetMapping
+    public ResponseEntity<List<ClienteResponseDTO>> listarClientesCpfAtivos(){
+        return ResponseEntity.ok(clienteService.listarClientesCpfAtivos());
+    }
 }
