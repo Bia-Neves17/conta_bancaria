@@ -19,4 +19,9 @@ public class ContaService {
                 .map(ContaResumoDTO::fromEntity)
                 .toList();
     }
+
+    public ContaResumoDTO buscarContaNumeroAtiva(String numero) {
+        var conta = contaRepository.findByNumeroAndAtivaTrue(numero).orElseThrow(()-> new RuntimeException("Conta não encontrada"));
+        return ContaResumoDTO.fromEntity(conta);
+    }
 }

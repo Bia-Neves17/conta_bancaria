@@ -4,10 +4,7 @@ import com.senai.conta_bancaria.application.dto.ContaResumoDTO;
 import com.senai.conta_bancaria.application.service.ContaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,5 +20,10 @@ public class ContaController {
     @GetMapping
     public ResponseEntity<List<ContaResumoDTO>>  listarContasAtivas(){
         return ResponseEntity.ok(contaService.listarContasAtivas());
+    }
+
+    @GetMapping("/numero/{numero}")
+    public ResponseEntity<ContaResumoDTO> buscarContaNumeroAtiva(@PathVariable String numero){
+        return ResponseEntity.ok(contaService.buscarContaNumeroAtiva(numero));
     }
 }
