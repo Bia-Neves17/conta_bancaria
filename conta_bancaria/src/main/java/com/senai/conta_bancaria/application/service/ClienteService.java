@@ -57,6 +57,9 @@ public class ClienteService {
     public void deletarCliente(String cpf) {
         var cliente = clienteRepository.findByCpfAndAtivoTrue(cpf).orElseThrow(()-> new RuntimeException("Cliente não encontrado"));
         cliente.setAtivo(false);
+        cliente.getContas().forEach(
+                conta -> conta.setAtiva(false)
+        );
         clienteRepository.save(cliente);
     }
 }
