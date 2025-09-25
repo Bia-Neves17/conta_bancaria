@@ -37,7 +37,8 @@ public class ClienteService {
     }
 
     public List<ClienteResponseDTO> listarClientesAtivos() {
-        return clienteRepository.findAllByAtivoTrue().stream()
+        return clienteRepository.findAllByAtivoTrue()
+                .stream()
                 .map(ClienteResponseDTO::fromEntity)
                 .toList();
     }
