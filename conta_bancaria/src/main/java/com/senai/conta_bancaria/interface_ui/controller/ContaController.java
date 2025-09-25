@@ -1,5 +1,6 @@
 package com.senai.conta_bancaria.interface_ui.controller;
 
+import com.senai.conta_bancaria.application.dto.ContaAtualizadaDTO;
 import com.senai.conta_bancaria.application.dto.ContaResumoDTO;
 import com.senai.conta_bancaria.application.service.ContaService;
 import lombok.RequiredArgsConstructor;
@@ -25,5 +26,10 @@ public class ContaController {
     @GetMapping("/numero/{numero}")
     public ResponseEntity<ContaResumoDTO> buscarContaNumeroAtiva(@PathVariable String numero){
         return ResponseEntity.ok(contaService.buscarContaNumeroAtiva(numero));
+    }
+
+    @PutMapping("/{numero}")
+    public ResponseEntity<ContaResumoDTO> atualizarConta(@PathVariable String numero, @RequestBody ContaAtualizadaDTO dto){
+        return ResponseEntity.ok(contaService.atualizarConta(numero, dto));
     }
 }

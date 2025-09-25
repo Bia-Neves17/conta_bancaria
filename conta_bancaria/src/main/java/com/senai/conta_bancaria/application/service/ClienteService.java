@@ -6,6 +6,7 @@ import com.senai.conta_bancaria.application.dto.ClienteResponseDTO;
 import com.senai.conta_bancaria.domain.repository.ClienteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -36,6 +37,7 @@ public class ClienteService {
         return ClienteResponseDTO.fromEntity(clienteRepository.save(cliente));
     }
 
+    @Transactional(readOnly = true)
     public List<ClienteResponseDTO> listarClientesAtivos() {
         return clienteRepository.findAllByAtivoTrue()
                 .stream()
@@ -43,6 +45,7 @@ public class ClienteService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
     public ClienteResponseDTO buscarClienteCpfAtivo(String cpf) {
         var cliente = clienteRepository.findByCpfAndAtivoTrue(cpf).orElseThrow(()-> new RuntimeException("Cliente não encontrado"));
         return ClienteResponseDTO.fromEntity(cliente);
