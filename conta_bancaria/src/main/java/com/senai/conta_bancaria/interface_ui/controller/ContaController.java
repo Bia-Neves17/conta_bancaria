@@ -41,17 +41,17 @@ public class ContaController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{numero}/sacar")
+    @PostMapping("/{numero}/sacar")
     public ResponseEntity<ContaResumoDTO> sacar(@PathVariable String numero, @RequestBody ValorSaqueDepositoDTO dto){
         return ResponseEntity.ok(contaService.sacar(numero, dto));
     }
 
-    @PutMapping("/{numero}/depositar")
+    @PostMapping("/{numero}/depositar")
     public  ResponseEntity<ContaResumoDTO> depositar(@PathVariable String numero, @RequestBody ValorSaqueDepositoDTO dto){
         return ResponseEntity.ok(contaService.depositar(numero, dto));
     }
 
-    @PutMapping("/{numero}/transferir")
+    @PostMapping("/{numero}/transferir")
     public ResponseEntity<ContaResumoDTO> transferir(@PathVariable String numero, @RequestBody TransferenciaDTO dto){
         return ResponseEntity.ok(contaService.transferir(numero, dto));
     }
