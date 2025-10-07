@@ -1,0 +1,46 @@
+package com.senai.conta_bancaria.interface_ui.exeption;
+
+import com.senai.conta_bancaria.domain.exception.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(ValoresNegativosExeption.class)
+    public ResponseEntity<String> handlerValoresNegativos (ValoresNegativosExeption ex){
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ContaMesmoTipoException.class)
+    public ResponseEntity<String> handlerContaMesmoTipo (ContaMesmoTipoException ex){
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(EntidadeNaoEncontradaException.class) //arrumar status
+    public ResponseEntity<String> handlerEntidadeNaoEncontrada (EntidadeNaoEncontradaException ex){
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(RendimentoInvalidoException.class) //arrumar status
+    public ResponseEntity<String> handlerRendimentoInvalido (RendimentoInvalidoException ex){
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(SaldoInsuficienteException.class) //arrumar status
+    public ResponseEntity<String> handlerSaldoInsuficiente (SaldoInsuficienteException ex){
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(TipoDeContaInvalidaException.class) //arrumar status
+    public ResponseEntity<String> handlerTipoDeContaInvalida (TipoDeContaInvalidaException ex){
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(TransferirParaMesmaContaException.class) //arrumar status
+    public ResponseEntity<String> handlerTransferirParaMesmaConta (TransferirParaMesmaContaException ex){
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+    }
+}
