@@ -44,7 +44,7 @@ public class ContaService {
             corrente.setLimite(dto.limite());
             corrente.setTaxa(dto.taxa());
         } else {
-            throw new RuntimeException("Tipo de conta invãlido");
+            throw new RuntimeException("Tipo de conta inválido");
         }
         conta.setSaldo(dto.saldo());
         return ContaResumoDTO.fromEntity(contaRepository.save(conta));
@@ -77,8 +77,7 @@ public class ContaService {
         Conta contaOrigem = buscarContaAtivaPorNumero(numero);
         Conta contaDestino = buscarContaAtivaPorNumero(numero);
 
-        contaOrigem.sacar(dto.valor());
-        contaDestino.depositar(dto.valor());
+        contaOrigem.transferir(dto.valor(), contaDestino);
 
         contaRepository.save(contaDestino);
         return ContaResumoDTO.fromEntity(contaRepository.save(contaOrigem));
