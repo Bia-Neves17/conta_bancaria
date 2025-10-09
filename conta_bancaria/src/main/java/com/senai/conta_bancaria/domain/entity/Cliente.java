@@ -27,11 +27,9 @@ public class Cliente {
     private String id;
 
     @Column(nullable = false, length = 120)
-    @NotBlank(message = "O campo nome não pode estar vazio")
     private String nome;
 
     @Column(nullable = false,length = 11)
-    @NotNull(message = "O campo cpf não pode estar vazio")
     private String cpf;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)

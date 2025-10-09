@@ -34,7 +34,6 @@ public abstract class Conta {
     private String numero;
 
     @Column(nullable = false, precision = 4)
-    @PositiveOrZero(message = "O saldo não pode ser negativo")
     private BigDecimal saldo;
 
     @Column(nullable = false)
