@@ -19,28 +19,33 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler(EntidadeNaoEncontradaException.class) //arrumar status
+    @ExceptionHandler(EntidadeNaoEncontradaException.class)
     public ResponseEntity<String> handlerEntidadeNaoEncontrada (EntidadeNaoEncontradaException ex){
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(RendimentoInvalidoException.class) //arrumar status
     public ResponseEntity<String> handlerRendimentoInvalido (RendimentoInvalidoException ex){
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(SaldoInsuficienteException.class) //arrumar status
     public ResponseEntity<String> handlerSaldoInsuficiente (SaldoInsuficienteException ex){
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(TipoDeContaInvalidaException.class) //arrumar status
     public ResponseEntity<String> handlerTipoDeContaInvalida (TipoDeContaInvalidaException ex){
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(TransferirParaMesmaContaException.class) //arrumar status
     public ResponseEntity<String> handlerTransferirParaMesmaConta (TransferirParaMesmaContaException ex){
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handlerException (Exception ex){
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
