@@ -4,6 +4,7 @@ import com.senai.conta_bancaria.application.dto.ClienteAtualizadoDTO;
 import com.senai.conta_bancaria.application.dto.ClienteRegistroDTO;
 import com.senai.conta_bancaria.application.dto.ClienteResponseDTO;
 import com.senai.conta_bancaria.application.service.ClienteService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class ClienteController {
 
 
     @PostMapping
-    public ResponseEntity<ClienteResponseDTO> registarCliente(@RequestBody ClienteRegistroDTO dto){
+    public ResponseEntity<ClienteResponseDTO> registarCliente(@Valid @RequestBody ClienteRegistroDTO dto){
         ClienteResponseDTO novoCliente = clienteService.regitrarCliente(dto);
         return ResponseEntity.created(URI.create("/api/novoCliente/cpf/"+ novoCliente.cpf())).body(novoCliente);
     }
@@ -31,17 +32,17 @@ public class ClienteController {
     }
 
     @GetMapping("/cpf/{cpf}")
-    public ResponseEntity<ClienteResponseDTO> buscarClienteCpfAtivo(@PathVariable String cpf){
+    public ResponseEntity<ClienteResponseDTO> buscarClienteCpfAtivo(@PathVariable @Valid String cpf){
         return ResponseEntity.ok(clienteService.buscarClienteCpfAtivo(cpf));
     }
 
     @PutMapping("/{cpf}")
-    public ResponseEntity<ClienteResponseDTO> atualizarCliente(@PathVariable String cpf, @RequestBody ClienteAtualizadoDTO dto){
+    public ResponseEntity<ClienteResponseDTO> atualizarCliente(@PathVariable String cpf, @Valid @RequestBody ClienteAtualizadoDTO dto){
         return ResponseEntity.ok(clienteService.atualizarCliente(cpf, dto));
     }
 
     @DeleteMapping("/{cpf}")
-    public ResponseEntity<Void> deletarCliente(@PathVariable String cpf){
+    public ResponseEntity<Void> deletarCliente(@PathVariable @Valid String cpf){
         clienteService.deletarCliente(cpf);
         return ResponseEntity.noContent().build();
     }

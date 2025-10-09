@@ -27,17 +27,17 @@ public class ContaController {
     }
 
     @GetMapping("/numero/{numero}")
-    public ResponseEntity<ContaResumoDTO> buscarContaNumeroAtiva(@PathVariable String numero){
+    public ResponseEntity<ContaResumoDTO> buscarContaNumeroAtiva(@PathVariable @Valid String numero){
         return ResponseEntity.ok(contaService.buscarContaNumeroAtiva(numero));
     }
 
     @PutMapping("/{numero}")
-    public ResponseEntity<ContaResumoDTO> atualizarConta(@PathVariable String numero, @RequestBody ContaAtualizadaDTO dto){
+    public ResponseEntity<ContaResumoDTO> atualizarConta(@PathVariable String numero, @Valid @RequestBody ContaAtualizadaDTO dto){
         return ResponseEntity.ok(contaService.atualizarConta(numero, dto));
     }
 
     @DeleteMapping("/{numero}")
-    public ResponseEntity<Void> deletarConta(@PathVariable String numero){
+    public ResponseEntity<Void> deletarConta(@PathVariable @Valid String numero){
         contaService.deletarConta(numero);
         return ResponseEntity.noContent().build();
     }
@@ -53,12 +53,12 @@ public class ContaController {
     }
 
     @PostMapping("/{numero}/transferir")
-    public ResponseEntity<ContaResumoDTO> transferir(@PathVariable String numero, @RequestBody TransferenciaDTO dto){
+    public ResponseEntity<ContaResumoDTO> transferir(@PathVariable String numero, @Valid @RequestBody TransferenciaDTO dto){
         return ResponseEntity.ok(contaService.transferir(numero, dto));
     }
 
     @PostMapping("/{numero}/rendimento")
-    public ResponseEntity<ContaResumoDTO> aplicarRendimento(@PathVariable String numero){
+    public ResponseEntity<ContaResumoDTO> aplicarRendimento(@PathVariable @Valid String numero){
         return ResponseEntity.ok(contaService.aplicarRendimento(numero));
     }
 

@@ -2,12 +2,16 @@ package com.senai.conta_bancaria.application.dto;
 
 import com.senai.conta_bancaria.domain.entity.Cliente;
 import com.senai.conta_bancaria.domain.entity.Conta;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
 
 public record ClienteRegistroDTO(
         String nome,
         String cpf,
+        @Valid
+        @NotNull
         ContaResumoDTO contaDTO
 ){
 
