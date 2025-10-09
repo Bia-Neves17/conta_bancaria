@@ -24,22 +24,22 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(RendimentoInvalidoException.class) //arrumar status
+    @ExceptionHandler(RendimentoInvalidoException.class)
     public ResponseEntity<String> handlerRendimentoInvalido (RendimentoInvalidoException ex){
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(SaldoInsuficienteException.class) //arrumar status
+    @ExceptionHandler(SaldoInsuficienteException.class)
     public ResponseEntity<String> handlerSaldoInsuficiente (SaldoInsuficienteException ex){
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(TipoDeContaInvalidaException.class) //arrumar status
+    @ExceptionHandler(TipoDeContaInvalidaException.class)
     public ResponseEntity<String> handlerTipoDeContaInvalida (TipoDeContaInvalidaException ex){
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(TransferirParaMesmaContaException.class) //arrumar status
+    @ExceptionHandler(TransferirParaMesmaContaException.class)
     public ResponseEntity<String> handlerTransferirParaMesmaConta (TransferirParaMesmaContaException ex){
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
