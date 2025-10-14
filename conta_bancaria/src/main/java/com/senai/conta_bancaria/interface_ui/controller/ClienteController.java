@@ -32,7 +32,7 @@ public class ClienteController {
     }
 
     @GetMapping("/cpf/{cpf}")
-    public ResponseEntity<ClienteResponseDTO> buscarClienteCpfAtivo(@PathVariable @Valid String cpf){
+    public ResponseEntity<ClienteResponseDTO> buscarClienteCpfAtivo(@PathVariable String cpf){
         return ResponseEntity.ok(clienteService.buscarClienteCpfAtivo(cpf));
     }
 
@@ -42,7 +42,7 @@ public class ClienteController {
     }
 
     @DeleteMapping("/{cpf}")
-    public ResponseEntity<Void> deletarCliente(@PathVariable @Valid String cpf){
+    public ResponseEntity<Void> deletarCliente(@PathVariable String cpf){
         clienteService.deletarCliente(cpf);
         return ResponseEntity.noContent().build();
     }

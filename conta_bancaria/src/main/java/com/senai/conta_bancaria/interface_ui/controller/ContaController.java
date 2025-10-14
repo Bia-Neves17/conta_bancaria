@@ -27,7 +27,7 @@ public class ContaController {
     }
 
     @GetMapping("/numero/{numero}")
-    public ResponseEntity<ContaResumoDTO> buscarContaNumeroAtiva(@PathVariable @Valid String numero){
+    public ResponseEntity<ContaResumoDTO> buscarContaNumeroAtiva(@PathVariable String numero){
         return ResponseEntity.ok(contaService.buscarContaNumeroAtiva(numero));
     }
 
@@ -37,7 +37,7 @@ public class ContaController {
     }
 
     @DeleteMapping("/{numero}")
-    public ResponseEntity<Void> deletarConta(@PathVariable @Valid String numero){
+    public ResponseEntity<Void> deletarConta(@PathVariable String numero){
         contaService.deletarConta(numero);
         return ResponseEntity.noContent().build();
     }
@@ -58,7 +58,7 @@ public class ContaController {
     }
 
     @PostMapping("/{numero}/rendimento")
-    public ResponseEntity<ContaResumoDTO> aplicarRendimento(@PathVariable @Valid String numero){
+    public ResponseEntity<ContaResumoDTO> aplicarRendimento(@PathVariable String numero){
         return ResponseEntity.ok(contaService.aplicarRendimento(numero));
     }
 
