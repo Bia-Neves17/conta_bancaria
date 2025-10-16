@@ -16,10 +16,6 @@ public class AuthController {
 
     private final AuthService auth;
 
-    public AuthController(AuthService auth) {
-        this.auth = auth;
-    }
-
     @PostMapping("/login")
     public ResponseEntity<AuthDTO.TokenResponse> login(@RequestBody AuthDTO.LoginRequest req) {
         String token = auth.login(req);

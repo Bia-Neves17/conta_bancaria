@@ -2,12 +2,9 @@ package com.senai.conta_bancaria.interface_ui.controller;
 
 import com.senai.conta_bancaria.application.dto.GerenteDTO;
 import com.senai.conta_bancaria.application.service.GerenteService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/gerentes")
@@ -24,8 +21,8 @@ public class GerenteController {
 
     @PostMapping
     public ResponseEntity<GerenteDTO> cadastrarGerente(@RequestBody GerenteDTO dto) {
-        GerenteDTO professorCriado = service.cadastrarProfessor(dto);
-        return ResponseEntity.ok(professorCriado);
+        GerenteDTO gerenteCriado = service.cadastrarGerente(dto);
+        return ResponseEntity.ok(gerenteCriado);
     }
 
 }
