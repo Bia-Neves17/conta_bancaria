@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/gerentes")
 @RequiredArgsConstructor
@@ -13,11 +15,11 @@ public class GerenteController {
 
     private final GerenteService service;
 
-    //@GetMapping
-    //public ResponseEntity<List<GerenteDTO>> listarTodosGerentes() {
-        //List<GerenteDTO> gerentes = service.listarTodosGerentes();
-       // return ResponseEntity.ok(gerentes);
-    //}
+    @GetMapping
+    public ResponseEntity<List<GerenteDTO>> listarTodosGerentes() {
+        List<GerenteDTO> gerentes = service.listarTodosGerentes();
+        return ResponseEntity.ok(gerentes);
+    }
 
     @PostMapping
     public ResponseEntity<GerenteDTO> cadastrarGerente(@RequestBody GerenteDTO dto) {
