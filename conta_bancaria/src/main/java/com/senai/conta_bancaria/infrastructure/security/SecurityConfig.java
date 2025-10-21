@@ -26,13 +26,14 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**","/swagger-ui/**","/v3/api-docs/**").permitAll()
 
-                        .requestMatchers(HttpMethod.POST, "/gerentes").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/gerentes").hasAnyRole("ADMIN","GERENTE")
+                        .requestMatchers(HttpMethod.POST, "/api/gerentes").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/gerentes").hasAnyRole("ADMIN","GERENTE")
 
-                        .requestMatchers(HttpMethod.POST, "/cliente").hasAnyRole("ADMIN","GERENTE")
-                        .requestMatchers(HttpMethod.GET, "/cliente").hasAnyRole("ADMIN","GERENTE")
+                        .requestMatchers(HttpMethod.POST, "/api/cliente").hasAnyRole("ADMIN","GERENTE")
+                        .requestMatchers(HttpMethod.GET, "/api/cliente").hasAnyRole("ADMIN","GERENTE")
 
-                        .requestMatchers(HttpMethod.GET, "/contas").hasAnyRole("ADMIN","GERENTE", "CLIENTE")
+                        .requestMatchers(HttpMethod.POST, "/api/conta/**").hasRole("CLIENTE")
+                        .requestMatchers(HttpMethod.GET, "/api/contas").hasAnyRole("ADMIN","GERENTE", "CLIENTE")
 
                         .anyRequest().authenticated()
                 )
