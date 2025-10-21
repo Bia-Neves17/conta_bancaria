@@ -4,8 +4,6 @@ import com.senai.conta_bancaria.domain.exception.SaldoInsuficienteException;
 import com.senai.conta_bancaria.domain.exception.TransferirParaMesmaContaException;
 import com.senai.conta_bancaria.domain.exception.ValoresNegativosExeption;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
