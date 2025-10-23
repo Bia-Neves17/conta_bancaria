@@ -160,4 +160,8 @@ public class GlobalExceptionHandler {
         problem.setProperty("errors", errors);
         return problem;
     }
+    @ExceptionHandler(ValidacaoException.class)
+    public ResponseEntity<?> handleValidacao(ValidacaoException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("erro", ex.getMessage()));
+    }
 }
