@@ -67,8 +67,8 @@ public class ServicoController {
     }
 
     @Operation(
-            summary = "Listar todos os serviços",
-            description = "Retorna todos os serviços cadastrados",
+            summary = "Listar todas as contas",
+            description = "Retorna todas as contas cadastradas",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Lista retornada com sucesso")
             }
@@ -81,34 +81,34 @@ public class ServicoController {
     }
 
     @Operation(
-            summary = "Buscar serviço por ID",
-            description = "Retorna um serviço existente a partir do seu ID",
+            summary = "Buscar conta por numero",
+            description = "Retorna uma conta existente a partir do seu numero",
             parameters = {
-                    @Parameter(name = "id", description = "ID do serviço a ser buscado", example = "1")
+                    @Parameter(name = "numero", description = "numero da conta a ser buscada", example = "123-4")
             },
             responses = {
-                    @ApiResponse(responseCode = "200", description = "Serviço encontrado"),
+                    @ApiResponse(responseCode = "200", description = "Conta encontrada"),
                     @ApiResponse(
                             responseCode = "404",
-                            description = "Serviço não encontrado",
+                            description = "Conta não encontrada",
                             content = @Content(
                                     mediaType = "application/json",
-                                    examples = @ExampleObject(value = "\"Serviço com ID 99 não encontrado.\"")
+                                    examples = @ExampleObject(value = "\"Conta não encontrada.\"")
                             )
                     )
             }
     )
-    @GetMapping("/{id}")
+    @GetMapping("/{numero}")
     public ResponseEntity<ServicoDTO> buscarPorId(@PathVariable Long id) {
         return ResponseEntity
                 .ok(service.buscarPorId(id));
     }
 
     @Operation(
-            summary = "Atualizar um serviço",
-            description = "Atualiza os dados de um serviço existente com novas informações",
+            summary = "Atualizar uma conta",
+            description = "Atualiza os dados de uma conta existente com novas informações",
             parameters = {
-                    @Parameter(name = "id", description = "ID do serviço a ser atualizado", example = "1")
+                    @Parameter(name = "numero", description = "numero da conta a ser atualizada", example = "123-4")
             },
             requestBody = @RequestBody(
                     required = true,
@@ -116,62 +116,62 @@ public class ServicoController {
                             schema = @Schema(implementation = ServicoDTO.class),
                             examples = @ExampleObject(name = "Exemplo de atualização", value = """
                         {
-                          "descricao": "Revisão completa",
-                          "preco": 200.0,
-                          "dataInicio": "2025-08-01",
-                          "dataFim": "2025-08-10"
+                          "numeroConta": "12345-6",
+                          "tipoConta": "CORRENTE",
+                          "saldo": 500.0,
+                          "clienteId": "1a2b3c"
                         }
                     """)
                     )
             ),
             responses = {
-                    @ApiResponse(responseCode = "200", description = "Serviço atualizado com sucesso"),
+                    @ApiResponse(responseCode = "200", description = "Conta atualizada com sucesso"),
                     @ApiResponse(
                             responseCode = "400",
                             description = "Erro de validação",
                             content = @Content(
                                     mediaType = "application/json",
                                     examples = {
-                                            @ExampleObject(name = "Preço inválido", value = "\"Preço mínimo do serviço deve ser R$ 50,00\""),
-                                            @ExampleObject(name = "Duração excedida", value = "\"Duração do serviço não pode exceder 30 dias\"")
+                                            @ExampleObject(name = "Saldo inválido", value = "\"Saldo inicial deve ser maior ou igual a 0\""),
+                                            @ExampleObject(name = "Tipo inválido", value = "\"Tipo da conta não reconhecido\"")
                                     }
                             )
                     ),
                     @ApiResponse(
                             responseCode = "404",
-                            description = "Serviço não encontrado",
+                            description = "Conta não encontrada",
                             content = @Content(
                                     mediaType = "application/json",
-                                    examples = @ExampleObject(value = "\"Serviço com ID 99 não encontrado.\"")
+                                    examples = @ExampleObject(value = "\"Conta não encontrada.\"")
                             )
                     )
             }
     )
-    @PutMapping("/{id}")
+    @PutMapping("/{numero")
     public ResponseEntity<ServicoDTO> atualizar(@PathVariable Long id, @Valid @org.springframework.web.bind.annotation.RequestBody ServicoDTO dto) {
         return ResponseEntity
                 .ok(service.atualizar(id, dto));
     }
 
     @Operation(
-            summary = "Deletar um serviço",
-            description = "Remove um serviço da base de dados a partir do seu ID",
+            summary = "Deletar uma conta",
+            description = "Remove uma conta da base de dados a partir do seu numero",
             parameters = {
-                    @Parameter(name = "id", description = "ID do serviço a ser deletado", example = "1")
+                    @Parameter(name = "numero", description = "numero da conta a ser deletada", example = "123-4")
             },
             responses = {
-                    @ApiResponse(responseCode = "204", description = "Serviço removido com sucesso"),
+                    @ApiResponse(responseCode = "204", description = "conta removida com sucesso"),
                     @ApiResponse(
                             responseCode = "404",
-                            description = "Serviço não encontrado",
+                            description = "conta não encontrada",
                             content = @Content(
                                     mediaType = "application/json",
-                                    examples = @ExampleObject(value = "\"Serviço com ID 99 não encontrado.\"")
+                                    examples = @ExampleObject(value = "\"conta não encontrada.\"")
                             )
                     )
             }
     )
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{numero}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         service.deletar(id);
         return ResponseEntity.noContent().build();
