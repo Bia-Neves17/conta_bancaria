@@ -147,7 +147,7 @@ public class ServicoController {
                     )
             }
     )
-    @PutMapping("/{numero")
+    @PutMapping("/{numero}")
     public ResponseEntity<ServicoDTO> atualizar(@PathVariable Long id, @Valid @org.springframework.web.bind.annotation.RequestBody ServicoDTO dto) {
         return ResponseEntity
                 .ok(service.atualizar(id, dto));
