@@ -16,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@Tag(name = "Serviços", description = "Gerenciamento de serviços da oficina mecânica")
+@Tag(name = "Serviços", description = "Gerenciamento de serviços da conta bancária")
 @RestController
 @RequestMapping("/servicos")
 public class ServicoController {
@@ -35,10 +35,10 @@ public class ServicoController {
                             schema = @Schema(implementation = ServicoDTO.class),
                             examples = @ExampleObject(name = "Exemplo válido", value = """
                                         {
-                                          "descricao": "Troca de óleo",
-                                          "preco": 120.0,
-                                          "dataInicio": "2025-08-05",
-                                          "dataFim": "2025-08-10"
+                                          "numeroConta": "12345-6",
+                                          "tipoConta": "CORRENTE",
+                                          "saldo": 500.0,
+                                          "clienteId": "1a2b3c"
                                         }
                                     """
                             )
@@ -52,8 +52,8 @@ public class ServicoController {
                             content = @Content(
                                     mediaType = "application/json",
                                     examples = {
-                                            @ExampleObject(name = "Preço inválido", value = "\"Preço mínimo do serviço deve ser R$ 50,00\""),
-                                            @ExampleObject(name = "Duração excedida", value = "\"Duração do serviço não pode exceder 30 dias\"")
+                                            @ExampleObject(name = "Saldo inválido", value = "\"Saldo inicial deve ser maior ou igual a 0\""),
+                                            @ExampleObject(name = "Tipo inválido", value = "\"Tipo da conta não reconhecido\"")
                                     }
                             )
                     )
