@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -29,5 +31,13 @@ public class Pagamento {
 
     private String dataPagamento;
 
-    private
+    private String status;
+
+    @ManyToMany
+    @JoinTable(
+            name = "pagamento_taxa",
+            joinColumns = @JoinColumn(name = "pagamento_id"),
+            inverseJoinColumns = @JoinColumn(name = "taxa_id")
+    )
+    private Set<Taxa> taxas = new HashSet<>();
 }
