@@ -25,6 +25,7 @@ public record GerenteDTO(
                 .nome(gerente.getNome())
                 .cpf(gerente.getCpf())
                 .email(gerente.getEmail())
+                .senha(gerente.getSenha())
                 .ativo(gerente.isAtivo())
                 .role(gerente.getRole())
                 .build();
