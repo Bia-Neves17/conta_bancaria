@@ -71,5 +71,17 @@ public abstract class Conta {
         contaDestino.depositar(valor);
     }
 
+    public boolean temSaldoSucifiente(BigDecimal valorPago){
+        return saldo.compareTo(valorPago) >=0;
+    }
+
+    public void debitarSaldo(BigDecimal valorPago){
+        if (temSaldoSucifiente(valorPago)){
+            saldo = saldo.subtract(valorPago);
+        }else {
+            throw new IllegalStateException("Saldo insuficiente");
+        }
+    }
+
 
 }
