@@ -2,6 +2,7 @@ package com.senai.conta_bancaria.application.service;
 
 import com.senai.conta_bancaria.application.dto.TaxaDTO;
 import com.senai.conta_bancaria.domain.entity.Taxa;
+import com.senai.conta_bancaria.domain.exception.TaxaInvalidaException;
 import com.senai.conta_bancaria.domain.repository.TaxaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class TaxaService {
 
     public Taxa findById(String id){
         return taxaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Taxa não encontrada"));
+                .orElseThrow(() -> new TaxaInvalidaException());
     }
 
     public void deletar(String id){taxaRepository.deleteById(id);}

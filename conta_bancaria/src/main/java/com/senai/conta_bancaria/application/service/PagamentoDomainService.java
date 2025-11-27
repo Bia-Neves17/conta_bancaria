@@ -3,6 +3,7 @@ package com.senai.conta_bancaria.application.service;
 import com.senai.conta_bancaria.domain.entity.Pagamento;
 import com.senai.conta_bancaria.domain.entity.Taxa;
 import com.senai.conta_bancaria.domain.enums.StatusPagamento;
+import com.senai.conta_bancaria.domain.exception.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,19 +29,19 @@ public class PagamentoDomainService {
 
     public void validarPagamento(Pagamento pagamento) throws IllegalArgumentException{
         if (pagamento.getStatus() != StatusPagamento.FALHA){
-            throw new IllegalArgumentException("O pagamento não está pendente");
+            throw new PagamentoNaoPendenteException();
         }
 
         if (pagamento.getValorPago().compareTo(BigDecimal.ZERO) <= 0){
-            throw new IllegalArgumentException("O valor do pagamento deve ser maior que zero");
+            throw new ValoresNegativosExeption("pagamento");
         }
 
         if (pagamento.getTaxas().isEmpty()) {
-            throw new IllegalArgumentException("O pagamento deve ter pelo menos uma taxa associada");
+            throw new PagamentoNaoAssociadoTaxaException();
         }
 
         if (isBoletoVencido(pagamento.getDataPagamento())){
-            throw new IllegalArgumentException("o boleto está vencido e não pode ser pago");
+            throw new BoletoVencidoException();
         }
     }
 
@@ -57,7 +58,7 @@ public class PagamentoDomainService {
 
         if (!pagamento.getConta().temSaldoSucifiente(valorTotal)){
             pagamento.setStatus(StatusPagamento.SALDO_INSUFICIENTE);
-            throw new IllegalStateException("Saldo insuficiente para realizar o pagamento.");
+            throw new SaldoInsuficienteException("pagamento");
         }
 
         pagamento.getConta().debitarSaldo(valorTotal);

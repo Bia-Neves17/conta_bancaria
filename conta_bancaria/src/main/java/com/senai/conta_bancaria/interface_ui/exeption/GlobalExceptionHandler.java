@@ -1,7 +1,6 @@
 package com.senai.conta_bancaria.interface_ui.exeption;
 
 import com.senai.conta_bancaria.domain.exception.*;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.core.convert.ConversionFailedException;
@@ -20,6 +19,56 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(TaxaInvalidaException.class)
+    public ProblemDetail handlerTaxaInvalida (TaxaInvalidaException ex, HttpServletRequest request){
+        return ProblemDetailUtils.buildProblem(
+           HttpStatus.BAD_REQUEST,
+           "Taxa não encontrada ou inválida.",
+           ex.getMessage(),
+           request.getRequestURI()
+        );
+    }
+
+    @ExceptionHandler(PagamentoInvalidoException.class)
+    public ProblemDetail handlerPagamentoInvalido (PagamentoInvalidoException ex, HttpServletRequest request){
+        return ProblemDetailUtils.buildProblem(
+                HttpStatus.BAD_REQUEST,
+                "Pagamento inválido. Erro ao processar.",
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+    }
+
+    @ExceptionHandler(PagamentoNaoPendenteException.class)
+    public ProblemDetail handlerPagamentoNaoPendente (PagamentoNaoPendenteException ex, HttpServletRequest request){
+        return ProblemDetailUtils.buildProblem(
+                HttpStatus.BAD_REQUEST,
+                "O pagamento não está pendente",
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+    }
+
+    @ExceptionHandler(PagamentoNaoAssociadoTaxaException.class)
+    public ProblemDetail handlerPagamentoNaoAssociadoTaxa (PagamentoNaoAssociadoTaxaException ex, HttpServletRequest request){
+        return ProblemDetailUtils.buildProblem(
+                HttpStatus.BAD_REQUEST, //arrumar status
+                "O pagamento deve ter pelo menos uma taxa associada",
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+    }
+
+    @ExceptionHandler(BoletoVencidoException.class)
+    public ProblemDetail handlerBoletoVencido (BoletoVencidoException ex, HttpServletRequest request){
+        return ProblemDetailUtils.buildProblem(
+                HttpStatus.BAD_REQUEST, //arrumar status
+                "o boleto está vencido e não pode ser pago",
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+    }
 
     @ExceptionHandler(ValoresNegativosExeption.class)
     public  ProblemDetail handlerValoresNegativos (ValoresNegativosExeption ex, HttpServletRequest request){

@@ -4,6 +4,9 @@ import com.senai.conta_bancaria.application.dto.PagamentoDTO;
 import com.senai.conta_bancaria.application.service.PagamentoAppService;
 import com.senai.conta_bancaria.domain.entity.Pagamento;
 import com.senai.conta_bancaria.domain.entity.Taxa;
+import com.senai.conta_bancaria.domain.exception.PagamentoInvalidoException;
+import com.senai.conta_bancaria.domain.exception.TaxaInvalidaException;
+import com.senai.conta_bancaria.domain.exception.TipoDeContaInvalidaException;
 import com.senai.conta_bancaria.domain.repository.ContaRepository;
 import com.senai.conta_bancaria.domain.repository.TaxaRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,14 +35,14 @@ public class PagamentoController {
         try {
             var contaOpt = contaRepository.findByNumeroAndAtivaTrue(pagamentoDTO.contaNumero());
             if (contaOpt.isEmpty()){
-                return new ResponseEntity<>("Conta não encontrada ou inativa.", HttpStatus.NOT_FOUND);
+                throw new TipoDeContaInvalidaException("");
             }
 
             var conta = contaOpt.get();
 
             Set<Taxa> taxas = new HashSet<>();
             for (String taxaId : pagamentoDTO.idsTaxas()){
-                Taxa taxa = taxaRepository.findById(taxaId).orElseThrow(() -> new RuntimeException("Taxa não encontrada: "+taxaId));
+                Taxa taxa = taxaRepository.findById(taxaId).orElseThrow(() -> new TaxaInvalidaException());
                 taxas.add(taxa);
             }
 
@@ -52,7 +55,7 @@ public class PagamentoController {
 
             return new ResponseEntity<>("Pagamento realizado com sucesso. Status: "+pagamento.getStatus(), HttpStatus.OK);
         } catch (RuntimeException e){
-            return new ResponseEntity<>("Erro ao processar o pagamento: "+e.getMessage(),HttpStatus.BAD_REQUEST);
+            throw new PagamentoInvalidoException();
         }
     }
 }
