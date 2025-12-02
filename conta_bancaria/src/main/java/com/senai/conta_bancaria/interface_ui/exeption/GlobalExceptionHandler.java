@@ -53,7 +53,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(PagamentoNaoAssociadoTaxaException.class)
     public ProblemDetail handlerPagamentoNaoAssociadoTaxa (PagamentoNaoAssociadoTaxaException ex, HttpServletRequest request){
         return ProblemDetailUtils.buildProblem(
-                HttpStatus.BAD_REQUEST, //arrumar status
+                HttpStatus.BAD_REQUEST,
                 "O pagamento deve ter pelo menos uma taxa associada",
                 ex.getMessage(),
                 request.getRequestURI()
@@ -63,7 +63,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BoletoVencidoException.class)
     public ProblemDetail handlerBoletoVencido (BoletoVencidoException ex, HttpServletRequest request){
         return ProblemDetailUtils.buildProblem(
-                HttpStatus.BAD_REQUEST, //arrumar status
+                HttpStatus.UNPROCESSABLE_ENTITY,
                 "o boleto está vencido e não pode ser pago",
                 ex.getMessage(),
                 request.getRequestURI()
